@@ -14,8 +14,10 @@ defmodule Rumbl.Router do
   end
 
   scope "/", Rumbl do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser # Use the default browser stacks.
 
+    get "/users", UserController, :index
+    get "/users/:id", UserController, :show
     get "/", PageController, :index
   end
 
