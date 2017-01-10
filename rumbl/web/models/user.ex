@@ -12,7 +12,8 @@ defmodule Rumbl.User do
 
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, ~w(name username))
+    |> cast(params, [:name, :username]) # 更新予定のパラメータカラムを第三引数でとる(?)
+    |> validate_required([:name, :username]) # このリストがcastが返すchangesetに存在するか検証
     |> validate_length(:username, min: 1, max: 20)
   end
 end
