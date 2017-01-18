@@ -1,5 +1,6 @@
 defmodule Rumbl.Auth do
   import Plug.Conn
+  import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
   def init(opts) do
     # キーワードリストから:repoの箇所の値を取得する
@@ -20,5 +21,21 @@ defmodule Rumbl.Auth do
     |> assign(:current_user, user)
     |> put_session(:user_id, user.id)
     |> configure_session(renew: true) # セッションキーとかを新しくしている(セキュリティのため)
+  end
+
+  def login_by_username_add_pass(conn, username, given_pass, opts) do
+    repo = Keyword.fetch!(opts, :repo)
+    user = repo.get_by(Rumbl.User, username: username)
+
+    # 複数の値で分岐しているためcaseではなくcond(caseは与えられた1つの値に対する分岐)
+    cond do
+      user && checkpw(given_pass, user.password_hash) ->
+        {:ok, login(conn, user)}
+      user ->
+        {:error, :unauthorized, conn}
+      true ->
+        dummy_checkpw()
+        {:error, :not_found, conn}
+    end
   end
 end
