@@ -17,7 +17,7 @@
         <ol class="breadcrumb text-right">
           <!-- assignsで突っ込んだものが使えている -->
           <%= if @current_user do %>
-            <li><%= @current_user.username %>
+            <li><%= @current_user.username %></li>
             <li>
               <%= link "Log out", to: session_path(@conn, :delete, @current_user),
                                   method: "delete" %>
