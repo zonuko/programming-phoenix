@@ -23,6 +23,10 @@ defmodule Rumbl.Auth do
     |> configure_session(renew: true) # セッションキーとかを新しくしている(セキュリティのため)
   end
 
+  def logout(conn) do
+    configure_session(conn, drop: true)
+  end
+
   def login_by_username_add_pass(conn, username, given_pass, opts) do
     repo = Keyword.fetch!(opts, :repo)
     user = repo.get_by(Rumbl.User, username: username)
