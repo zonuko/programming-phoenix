@@ -3,13 +3,23 @@ defmodule Rumbl.VideoController do
 
   alias Rumbl.Video
 
+  # カスタムアクションで各アクションをカスタマイズする
+  def action(conn, _) do
+    # 第一引数のモジュールの第二引数の関数に第三引数の引数を渡して実行する
+    apply(__MODULE__, action_name(conn), [conn, conn.params, conn.assigns.current_user])
+  end
+
   def index(conn, _params) do
     videos = Repo.all(Video)
     render(conn, "index.html", videos: videos)
   end
 
   def new(conn, _params) do
-    changeset = Video.changeset(%Video{})
+    changeset = 
+      conn.assigns.current_user
+      |> build_assoc(:videos) # current_userに関連するVideo構造体を作成
+      |> Video.changeset() # 上記Video構造体からchangeset作成
+
     render(conn, "new.html", changeset: changeset)
   end
 
