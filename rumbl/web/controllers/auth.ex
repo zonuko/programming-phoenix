@@ -12,10 +12,16 @@ defmodule Rumbl.Auth do
 
   def call(conn, repo) do
     user_id = get_session(conn, :user_id)
-    user = user_id && repo.get(Rumbl.User, user_id)
-    # assignでconnを変更する(importされた関数)
-    # これによって:current_userがコントローラやビューで使えるようになる
-    assign(conn, :current_user, user)
+    cond do
+      user = conn.assigns[:current_user] ->
+        conn
+      user = user_id && repo.get(Rumbl.User, user_id) ->
+        # assignでconnを変更する(importされた関数)
+        # これによって:current_userがコントローラやビューで使えるようになる
+        assign(conn, :current_user, user)
+      true ->
+        assign(conn, :current_user, nil)
+    end
   end
 
   def login(conn, user) do
