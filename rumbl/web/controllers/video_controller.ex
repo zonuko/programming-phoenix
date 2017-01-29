@@ -42,7 +42,7 @@ defmodule Rumbl.VideoController do
     end
   end
 
-  def show(conn, %{"id" => id}, user, user) do
+  def show(conn, %{"id" => id}, user) do
     video = Repo.get!(user_videos(user), id)
     render(conn, "show.html", video: video)
   end
