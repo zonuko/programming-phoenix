@@ -1,9 +1,9 @@
 let Player = {
     player: null,
 
-    init(domId, plyerId, onReadby) {
+    init(domId, player, onReadby) {
         window.onYouTubeIframeAPIReady = () => {
-            this.onIframeReady(domId, playerId, onReadby);
+            this.onIframeReady(domId, player, onReadby);
         };
         let youtubeScriptTag = document.createElement("script");
         // APIの読み込み APIが読み込まれるとonYouTubeIframeAPIReady関数が自動で呼ばれる
