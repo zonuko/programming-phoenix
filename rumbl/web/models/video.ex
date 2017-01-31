@@ -1,6 +1,8 @@
 defmodule Rumbl.Video do
   use Rumbl.Web, :model
 
+  # idフィールドのカスタマイズ 第二要素は型らしい
+  @primary_key {:id, Rumbl.Permalink, autogenerate: true}
   schema "videos" do
     field :url, :string
     field :title, :string
