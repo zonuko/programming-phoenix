@@ -16,8 +16,11 @@ let Video = {
         let msgInput = document.getElementById("msg-input");
         let postButton = document.getElementById("msg-submit");
         // トピックの識別
-        let voidChannel = socket.channel("videos:" + videoId);
-        // TODO: join the vidChannel
+        let vidChannel = socket.channel("videos:" + videoId);
+        // チャンネルへのjoin receiveで帰ってきたものを受け取る(OTPっぽい)
+        vidChannel.join()
+            .receive("ok", resp => console.log("joined the video channel", resp))
+            .receive("error", reason => console.log("join failed", reason));
     }
 }
 
