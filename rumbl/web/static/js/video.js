@@ -17,10 +17,27 @@ let Video = {
         let postButton = document.getElementById("msg-submit");
         // トピックの識別
         let vidChannel = socket.channel("videos:" + videoId);
+
+        postButton.addEventListener("click", e => {
+            let payload = { body: msgInput.value, at: Player.getCurrentTime() };
+            vidChannel.push("new_annotation", payload)
+                .receive("error", e => console.log(e));
+            msgInput.value = "";
+        });
+
+        // サーバーからのプッシュイベントを受け取るイベントハンドラを設定
+        vidChannel.on("new_annotation", (resp) => {
+            this.renderAnnotation(msgContainer, resp);
+        });
+
         // チャンネルへのjoin receiveで帰ってきたものを受け取る(OTPっぽい)
         vidChannel.join()
             .receive("ok", resp => console.log("joined the video channel", resp))
             .receive("error", reason => console.log("join failed", reason));
+    },
+
+    renderAnnotation(msgContainer, { user, body, at }) {
+        // TODO append annotation to msgContainer
     }
 }
 
