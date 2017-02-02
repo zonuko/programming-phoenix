@@ -15,7 +15,7 @@ defmodule Rumbl.VideoChannel do
     # ユーザが任意のメッセージを送れないようにparamsを分解する
     broadcast! socket, "new_annotation", %{
       user: %{username: "anon"},
-      body: params["body"],
+      body: params["body"], # jsonがそのままMapかなんかになっているらしい
       at: params["at"]
     }
 
