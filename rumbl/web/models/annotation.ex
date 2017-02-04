@@ -3,7 +3,7 @@ defmodule Rumbl.Annotation do
 
   schema "annotations" do
     field :body, :string
-    field :as, :integer
+    field :at, :integer
     belongs_to :user, Rumbl.User
     belongs_to :video, Rumbl.Video
 
@@ -15,7 +15,7 @@ defmodule Rumbl.Annotation do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:body, :as])
-    |> validate_required([:body, :as])
+    |> cast(params, [:body, :at])
+    |> validate_required([:body, :at])
   end
 end
