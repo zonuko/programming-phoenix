@@ -18,11 +18,12 @@ defmodule Rumbl.InfoSys do
 
     # 各バックエンドサービスに関してプロセスを開始する
     backends
-    |> Enum.map(&spawn_query(&1, query, limit)
+    |> Enum.map(&spawn_query(&1, query, limit))
   end
 
   defp spawn_query(backend, query, limit) do
     query_ref = make_ref()
+    # 送り返される時に自分のPIDが必要なので第4引数はself()
     opts = [backend, query, query_ref, self(), limit]
     # 起動済みのSupervisorに自分自身のプロセスを子として監視してもらう
     # これを呼び出すと自動でstart_linkが呼び出されてプロセス開始する
