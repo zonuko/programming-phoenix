@@ -19,7 +19,7 @@ defmodule Rumbl.InfoSys.Wolfram do
   defp send_result(nil, query_ref, owner) do
     send(owner, {:results, query_ref, []})
   end
-  
+
   # xml解析結果を元々のプロセスに送り返す(成功時)
   defp send_result(answer, query_ref, owner) do
     results = [%Result{backend: "wolfram", score: 95, text: to_string(answer)}]
@@ -30,6 +30,7 @@ defmodule Rumbl.InfoSys.Wolfram do
     {:ok, {_, _, body}} = :httpc.request(
       String.to_char_list("http://api.wolframalpha.com/v2/query" <> "?appid=#{app_id()}" <>
                                                                     "&input=#{URI.encode(query_str)}&format=plaintext"))
+    body
   end
 
   defp app_id, do: Application.get_env(:rumbl, :wolfram)[:app_id]
