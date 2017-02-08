@@ -22,6 +22,8 @@ defmodule Rumbl.InfoSys.Wolfram do
 
   # xml解析結果を元々のプロセスに送り返す(成功時)
   defp send_result(answer, query_ref, owner) do
+    # タイマー実験用
+    # :timer.sleep(5001)
     results = [%Result{backend: "wolfram", score: 95, text: to_string(answer)}]
     send(owner, {:results, query_ref, results})
   end
