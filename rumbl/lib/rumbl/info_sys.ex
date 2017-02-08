@@ -77,6 +77,8 @@ defmodule Rumbl.InfoSys do
         IO.puts("after")
         kill(pid, monitor_ref)
         # ひたすらここにはいることになるのでタイムアウト後は何もせずに終わる
+        # 但しすでに設定時間待っているということなので全部返ってきているはず
+        # よってtimeoutが0でもここにはいる前にreceive節が処理される
         await_result(tail, acc, 0)
     end
   end
