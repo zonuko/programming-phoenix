@@ -10,6 +10,10 @@ defmodule Rumbl.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
+     build_path: "../../_build",
+     config_path: "../../config/config.exs",
+     deps_path: "../../deps",
+     lockfile: "../../mix.lock",
      deps: deps()]
   end
 
@@ -19,7 +23,7 @@ defmodule Rumbl.Mixfile do
   def application do
     [mod: {Rumbl, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+                    :phoenix_ecto, :postgrex, :comeonin, :info_sys]]
   end
 
   # Specifies which paths to compile per environment.
@@ -39,7 +43,7 @@ defmodule Rumbl.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.0"},
-     {:sweet_xml, "~> 0.5.0"}, # xmlの変換するコンバータ
+     {:info_sys, in_umbrella: true},
     ]
   end
 

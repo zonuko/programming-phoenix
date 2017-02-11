@@ -54,7 +54,7 @@ defmodule Rumbl.VideoChannel do
     # computeには結果をスコア順で先頭一つだけ取るように指示
     # googleとかの結果もほしいならlimit2とかにすれば良いはず 
     # 結果は要らないのでリスト内包表記の結果は呼び出し元でも受け取っていない
-    for result <- Rumbl.InfoSys.compute(ann.body, limit: 1, timeout: 10_000) do
+    for result <- InfoSys.compute(ann.body, limit: 1, timeout: 10_000) do
       attrs = %{url: result.url, body: result.text, at: ann.at}
 
       info_changeset = 
