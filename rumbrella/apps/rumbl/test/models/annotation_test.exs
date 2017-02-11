@@ -3,7 +3,7 @@ defmodule Rumbl.AnnotationTest do
 
   alias Rumbl.Annotation
 
-  @valid_attrs %{as: 42, body: "some content"}
+  @valid_attrs %{at: 42, body: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
