@@ -1,6 +1,6 @@
-defmodule Rumbl.InfoSys do
+defmodule InfoSys do
   # デフォルトのバックエンドサービス
-  @backends [Rumbl.InfoSys.Wolfram]
+  @backends [InfoSys.Wolfram]
 
   defmodule Result do
     defstruct score: 0, text: nil, url: nil, backend: nil
@@ -30,7 +30,7 @@ defmodule Rumbl.InfoSys do
     opts = [backend, query, query_ref, self(), limit]
     # 起動済みのSupervisorに自分自身のプロセスを子として監視してもらう
     # これを呼び出すと自動でstart_linkが呼び出されてプロセス開始する
-    {:ok, pid} = Supervisor.start_child(Rumbl.InfoSys.Supervisor, opts)
+    {:ok, pid} = Supervisor.start_child(InfoSys.Supervisor, opts)
 
     # プロセスの死活監視
     monitor_ref = Process.monitor(pid)
