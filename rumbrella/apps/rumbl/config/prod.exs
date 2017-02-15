@@ -13,8 +13,9 @@ use Mix.Config
 # which you typically run after static files are built.
 config :rumbl, Rumbl.Endpoint,
   http: [port: 4001],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/manifest.json"
+  url: [host: "localhost", port: 8080],
+  cache_static_manifest: "priv/static/manifest.json",
+  server: true # リリース用サーバー開始設定
 
 # Do not print debug messages in production
 config :logger, level: :info
